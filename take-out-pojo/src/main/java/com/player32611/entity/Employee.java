@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Employee {
-    private Integer id;
+    private Long id;
     private String name;
     private String username;
     private String password;
@@ -20,6 +20,6 @@ public class Employee {
     private Integer status;
     private LocalDateTime create_time;
     private LocalDateTime update_time;
-    private Integer create_user;
-    private Integer update_user;
+    private Long create_user;
+    private Long update_user;
 }
