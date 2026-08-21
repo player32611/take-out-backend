@@ -1,25 +1,32 @@
 package com.player32611.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.player32611.constant.MessageConstant;
 import com.player32611.constant.PasswordConstant;
 import com.player32611.constant.StatusConstant;
 import com.player32611.context.BaseContext;
 import com.player32611.dto.EmployeeDTO;
 import com.player32611.dto.EmployeeLoginDTO;
+import com.player32611.dto.EmployeePageDTO;
 import com.player32611.entity.Employee;
 import com.player32611.exception.AccountLockedException;
 import com.player32611.exception.AccountNotFoundException;
 import com.player32611.exception.PasswordErrorException;
 import com.player32611.mapper.EmployeeMapper;
+import com.player32611.result.PageResult;
 import com.player32611.service.EmployeeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
+@Slf4j
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
@@ -55,14 +62,30 @@ public class EmployeeServiceImpl implements EmployeeService {
         BeanUtils.copyProperties(employeeDTO, employee);
         employee.setStatus(StatusConstant.ENABLE);
         employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
-        employee.setCreate_time(LocalDateTime.now());
-        employee.setUpdate_time(LocalDateTime.now());
-        employee.setCreate_user(BaseContext.getCurrentId());
-        employee.setUpdate_user(BaseContext.getCurrentId());
+        employee.setCreateTime(LocalDateTime.now());
+        employee.setUpdateTime(LocalDateTime.now());
+        employee.setCreateUser(BaseContext.getCurrentId());
+        employee.setUpdateUser(BaseContext.getCurrentId());
 
         employeeMapper.insert(employee);
 
         return employee;
     }
 
+    @Override
+    public PageResult<Employee> page(EmployeePageDTO employeePageDTO){
+        PageHelper.startPage(employeePageDTO.getPage(), employeePageDTO.getPageSize());
+
+        Page<Employee> page;
+        if(employeePageDTO.getName() == null) {
+            page = (Page<Employee>) employeeMapper.selectAll();
+        } else {
+            page = (Page<Employee>) employeeMapper.selectByUsernameLike(employeePageDTO.getName());
+        }
+
+        Long total = page.getTotal();
+        List<Employee> records = page.getResult();
+
+        return new PageResult<>(total, records);
+    }
 }

@@ -16,7 +16,7 @@
         <maven.compiler.target>26</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
+E
     <dependencies>
         <dependency>
             <groupId>com.player32611</groupId>

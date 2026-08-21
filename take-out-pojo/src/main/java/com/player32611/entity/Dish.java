@@ -13,13 +13,13 @@ import java.time.LocalDateTime;
 public class Dish {
     private Long id;
     private String name;
-    private Long category_id;
+    private Long categoryId;
     private BigDecimal price;
     private String image;
     private String description;
     private Integer status;
-    private LocalDateTime create_time;
-    private LocalDateTime update_time;
-    private Long create_user;
-    private Long update_user;
+    private LocalDateTime createTime;
+    private LocalDateTime updateTime;
+    private Long createUser;
+    private Long updateUser;
 }

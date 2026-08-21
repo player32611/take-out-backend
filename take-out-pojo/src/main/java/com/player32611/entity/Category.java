@@ -15,8 +15,8 @@ public class Category {
     private Integer type;
     private Integer sort;
     private Integer status;
-    private LocalDateTime create_time;
-    private LocalDateTime update_time;
-    private Long create_user;
-    private Long update_user;
+    private LocalDateTime createTime;
+    private LocalDateTime updateTime;
+    private Long createUser;
+    private Long updateUser;
 }
