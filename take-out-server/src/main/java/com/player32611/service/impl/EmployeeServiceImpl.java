@@ -56,7 +56,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee save(EmployeeDTO employeeDTO){
+    public void save(EmployeeDTO employeeDTO){
         Employee employee = new Employee();
 
         BeanUtils.copyProperties(employeeDTO, employee);
@@ -68,8 +68,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setUpdateUser(BaseContext.getCurrentId());
 
         employeeMapper.insert(employee);
-
-        return employee;
     }
 
     @Override
@@ -87,5 +85,17 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<Employee> records = page.getResult();
 
         return new PageResult<>(total, records);
+    }
+
+    @Override
+    public void status(Integer status, Long id){
+        Employee employee = Employee.builder()
+                .status(status)
+                .id(id)
+                .updateTime(LocalDateTime.now())
+                .updateUser(BaseContext.getCurrentId())
+                .build();
+
+        employeeMapper.update(employee);
     }
 }

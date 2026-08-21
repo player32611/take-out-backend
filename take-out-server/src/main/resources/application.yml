@@ -5,6 +5,7 @@ spring:
     username: root
     password: hcb326630
 mybatis:
+  mapper-locations: classpath:/mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
 player32611:

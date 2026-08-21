@@ -9,7 +9,9 @@ import com.player32611.result.PageResult;
 public interface EmployeeService {
     Employee login(EmployeeLoginDTO employeeLoginDTO);
 
-    Employee save(EmployeeDTO employeeDTO);
+    void save(EmployeeDTO employeeDTO);
 
     PageResult<Employee> page(EmployeePageDTO employeePageDTO);
+
+    void status(Integer status, Long id);
 }

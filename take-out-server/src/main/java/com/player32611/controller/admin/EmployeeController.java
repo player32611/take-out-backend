@@ -56,11 +56,9 @@ public class EmployeeController {
     public Result<EmployeeVO> save(@RequestBody EmployeeDTO employeeDTO){
         log.info("新增员工请求：{}", employeeDTO);
 
-        Employee employee = employeeService.save(employeeDTO);
+        employeeService.save(employeeDTO);
 
-        EmployeeVO employeeVO = EmployeeVO.builder().build();
-
-        return Result.success(employeeVO);
+        return Result.success();
     }
 
     @GetMapping("/page")
@@ -70,5 +68,14 @@ public class EmployeeController {
         PageResult<Employee> pageResult = employeeService.page(employeePageDTO);
 
         return Result.success(pageResult);
+    }
+
+    @PostMapping("/status/{status}")
+    public Result<EmployeeVO> status(@PathVariable Integer status, Long id){
+        log.info("启用、禁用员工账号请求：{}, {}", status, id);
+
+        employeeService.status(status, id);
+
+        return Result.success();
     }
 }
