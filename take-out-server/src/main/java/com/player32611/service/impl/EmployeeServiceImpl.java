@@ -116,8 +116,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setUpdateTime(LocalDateTime.now());
         employee.setUpdateUser(BaseContext.getCurrentId());
 
-        log.info("11, {}", employee);
-
         employeeMapper.update(employee);
     }
 }
