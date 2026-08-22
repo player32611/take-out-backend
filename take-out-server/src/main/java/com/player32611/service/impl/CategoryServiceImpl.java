@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.player32611.context.BaseContext;
 import com.player32611.dto.CategoryDTO;
 import com.player32611.dto.CategoryDeleteDTO;
+import com.player32611.dto.CategoryListDTO;
 import com.player32611.dto.CategoryPageDTO;
 import com.player32611.entity.Category;
 import com.player32611.mapper.CategoryMapper;
@@ -73,5 +74,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void delete(CategoryDeleteDTO categoryDeleteDTO){
         categoryMapper.delete(categoryDeleteDTO.getId());
+    }
+
+    @Override
+    public List<Category> list(CategoryListDTO categoryListDTO){
+        return categoryMapper.selectByNameLikeAndType("", categoryListDTO.getType());
     }
 }

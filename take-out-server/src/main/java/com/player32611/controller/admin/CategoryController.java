@@ -2,6 +2,7 @@ package com.player32611.controller.admin;
 
 import com.player32611.dto.CategoryDTO;
 import com.player32611.dto.CategoryDeleteDTO;
+import com.player32611.dto.CategoryListDTO;
 import com.player32611.dto.CategoryPageDTO;
 import com.player32611.entity.Category;
 import com.player32611.result.PageResult;
@@ -11,6 +12,8 @@ import com.player32611.vo.CategoryVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/admin/category")
@@ -63,5 +66,13 @@ public class CategoryController {
         categoryService.delete(categoryDeleteDTO);
 
         return Result.success();
+    }
+    @GetMapping("/list")
+    public Result<List<Category>> list(CategoryListDTO categoryListDTO){
+        log.info("根据类型查询分类请求: {}", categoryListDTO);
+
+        List<Category> categoryList = categoryService.list(categoryListDTO);
+
+        return Result.success(categoryList);
     }
 }

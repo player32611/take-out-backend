@@ -2,9 +2,12 @@ package com.player32611.service;
 
 import com.player32611.dto.CategoryDTO;
 import com.player32611.dto.CategoryDeleteDTO;
+import com.player32611.dto.CategoryListDTO;
 import com.player32611.dto.CategoryPageDTO;
 import com.player32611.entity.Category;
 import com.player32611.result.PageResult;
+
+import java.util.List;
 
 public interface CategoryService {
 
@@ -17,4 +20,6 @@ public interface CategoryService {
     void status(Integer status, Long id);
 
     void delete(CategoryDeleteDTO categoryDeleteDTO);
+
+    List<Category> list(CategoryListDTO categoryListDTO);
 }

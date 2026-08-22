@@ -1,5 +1,6 @@
 package com.player32611.controller.admin;
 
+import com.player32611.constant.MessageConstant;
 import com.player32611.result.Result;
 import com.player32611.utils.AliOssUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -32,9 +33,9 @@ public class CommonController {
             String filePath = aliOssUtil.upload(file.getBytes(), objectName);
             return Result.success(filePath);
         } catch (IOException e){
-            log.error("文件上传请求失败");
+            log.error(MessageConstant.UPLOAD_FAILED);
         }
 
-        return Result.error("上传失败");
+        return Result.error(MessageConstant.UPLOAD_FAILED);
     }
 }
