@@ -1,0 +1,7 @@
+player32611:
+  alioss:
+    endpoint: oss-cn-beijing.aliyuncs.com
+    region: cn-beijing
+    access-key-id: LTAI5t7Q15FkJ676QshDEs9G
+    access-key-secret: YiWN2BgyFwFdFoUlUNeeemFYSXoBrA
+    bucket-name: take-out-player32611
