@@ -15,7 +15,7 @@ public interface EmployeeMapper {
     List<Employee> selectAll();
 
     @Select("select * from employee where id = #{id}")
-    Employee selectById(Integer id);
+    Employee selectById(Long id);
 
     @Select("select * from employee where username = #{username}")
     Employee selectByUsername(String username);

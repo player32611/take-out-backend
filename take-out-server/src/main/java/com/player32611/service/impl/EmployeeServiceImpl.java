@@ -16,6 +16,7 @@ import com.player32611.exception.PasswordErrorException;
 import com.player32611.mapper.EmployeeMapper;
 import com.player32611.result.PageResult;
 import com.player32611.service.EmployeeService;
+import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,6 +96,27 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .updateTime(LocalDateTime.now())
                 .updateUser(BaseContext.getCurrentId())
                 .build();
+
+        employeeMapper.update(employee);
+    }
+
+    @Override
+    public Employee id(Long id){
+        Employee employee = employeeMapper.selectById(id);
+        employee.setPassword("******");
+
+        return employee;
+    }
+
+    @Override
+    public void update(EmployeeDTO employeeDTO){
+        Employee employee = new Employee();
+        BeanUtils.copyProperties(employeeDTO, employee);
+
+        employee.setUpdateTime(LocalDateTime.now());
+        employee.setUpdateUser(BaseContext.getCurrentId());
+
+        log.info("11, {}", employee);
 
         employeeMapper.update(employee);
     }

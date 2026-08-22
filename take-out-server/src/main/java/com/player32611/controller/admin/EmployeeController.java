@@ -31,7 +31,7 @@ public class EmployeeController {
 
     @PostMapping("/login")
     public Result<EmployeeLoginVO> login(@RequestBody EmployeeLoginDTO employeeLoginDTO) {
-        log.info("员工登录请求：{}", employeeLoginDTO);
+        log.info("员工登录请求: {}", employeeLoginDTO);
 
         Employee employee = employeeService.login(employeeLoginDTO);
 
@@ -54,7 +54,7 @@ public class EmployeeController {
 
     @PostMapping
     public Result<EmployeeVO> save(@RequestBody EmployeeDTO employeeDTO){
-        log.info("新增员工请求：{}", employeeDTO);
+        log.info("新增员工请求: {}", employeeDTO);
 
         employeeService.save(employeeDTO);
 
@@ -63,7 +63,7 @@ public class EmployeeController {
 
     @GetMapping("/page")
     public Result<PageResult<Employee>> page(EmployeePageDTO employeePageDTO){
-        log.info("员工分页查询请求：{}", employeePageDTO);
+        log.info("员工分页查询请求: {}", employeePageDTO);
 
         PageResult<Employee> pageResult = employeeService.page(employeePageDTO);
 
@@ -72,9 +72,27 @@ public class EmployeeController {
 
     @PostMapping("/status/{status}")
     public Result<EmployeeVO> status(@PathVariable Integer status, Long id){
-        log.info("启用、禁用员工账号请求：{}, {}", status, id);
+        log.info("启用、禁用员工账号请求: {}, {}", status, id);
 
         employeeService.status(status, id);
+
+        return Result.success();
+    }
+
+    @GetMapping("/{id}")
+    public Result<Employee> id(@PathVariable Long id){
+        log.info("id 查询员工请求: {}", id);
+
+        Employee employee = employeeService.id(id);
+
+        return Result.success(employee);
+    }
+
+    @PutMapping
+    public Result<EmployeeVO> update(@RequestBody EmployeeDTO employeeDTO){
+        log.info("编辑员工信息请求: {}", employeeDTO);
+
+        employeeService.update(employeeDTO);
 
         return Result.success();
     }
