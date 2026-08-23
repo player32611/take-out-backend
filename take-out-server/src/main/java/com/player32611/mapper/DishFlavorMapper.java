@@ -1,7 +1,7 @@
 package com.player32611.mapper;
 
 import com.player32611.entity.DishFlavor;
-import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -10,4 +10,9 @@ import java.util.List;
 public interface DishFlavorMapper {
 
     Integer insertBatch(List<DishFlavor> flavors);
+
+    @Delete("delete from dish_flavor where dish_id = #{dishId}")
+    void deleteByDishId(Long dishId);
+
+    void deleteByDishIds(List<Long> dishIds);
 }

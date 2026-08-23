@@ -6,10 +6,12 @@ import com.player32611.dto.DishPageDTO;
 import com.player32611.entity.Dish;
 import com.player32611.enumeration.OperationType;
 import com.player32611.vo.DishPageVO;
-import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+
 
 @Mapper
 public interface DishMapper {
@@ -18,4 +20,12 @@ public interface DishMapper {
     Integer insert(Dish dish);
 
     Page<DishPageVO> page(DishPageDTO dishPageDTO);
+
+    @Select("select * from dish where id = #{id}")
+    Dish selectById(Long id);
+
+    @Delete("delete from dish where id = #{id}")
+    void deleteById(Long id);
+
+    void deleteByIds(List<Long> ids);
 }

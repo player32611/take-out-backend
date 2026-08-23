@@ -2,7 +2,6 @@ package com.player32611.mapper;
 
 import com.player32611.annotation.AutoFill;
 import com.player32611.entity.Category;
-import com.player32611.entity.Employee;
 import com.player32611.enumeration.OperationType;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;

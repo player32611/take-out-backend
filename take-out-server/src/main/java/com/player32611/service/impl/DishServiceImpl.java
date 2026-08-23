@@ -2,13 +2,16 @@ package com.player32611.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.player32611.constant.MessageConstant;
+import com.player32611.constant.StatusConstant;
 import com.player32611.dto.DishDTO;
 import com.player32611.dto.DishPageDTO;
 import com.player32611.entity.Dish;
 import com.player32611.entity.DishFlavor;
-import com.player32611.entity.Employee;
+import com.player32611.exception.DeletionNotAllowedException;
 import com.player32611.mapper.DishFlavorMapper;
 import com.player32611.mapper.DishMapper;
+import com.player32611.mapper.SetmealDishMapper;
 import com.player32611.result.PageResult;
 import com.player32611.service.DishService;
 import com.player32611.vo.DishPageVO;
@@ -19,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @Service
@@ -28,6 +32,8 @@ public class DishServiceImpl implements DishService {
     private DishMapper dishMapper;
     @Autowired
     private DishFlavorMapper dishFlavorMapper;
+    @Autowired
+    private SetmealDishMapper setmealDishMapper;
 
     @Override
     @Transactional
@@ -57,6 +63,25 @@ public class DishServiceImpl implements DishService {
         Long total = page.getTotal();
         List<DishPageVO> records = page.getResult();
 
-        return new PageResult<DishPageVO>(total, records);
+        return new PageResult<>(total, records);
+    }
+
+    @Override
+    @Transactional
+    public void delete(List<Long> ids){
+        for (Long id : ids){
+            Dish dish = dishMapper.selectById(id);
+            if(Objects.equals(dish.getStatus(), StatusConstant.ENABLE)){
+                throw new DeletionNotAllowedException(MessageConstant.DISH_ON_SALE);
+            }
+        }
+
+        List<Long> setmealIds = setmealDishMapper.selectSetmealIdByDishIds(ids);
+        if(setmealIds != null && !setmealIds.isEmpty()){
+            throw new DeletionNotAllowedException(MessageConstant.DISH_BE_RELATED_BY_SETMEAL);
+        }
+
+        dishMapper.deleteByIds(ids);
+        dishFlavorMapper.deleteByDishIds(ids);
     }
 }
