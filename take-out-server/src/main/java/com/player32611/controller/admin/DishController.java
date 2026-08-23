@@ -52,10 +52,19 @@ public class DishController {
 
     @GetMapping("/{id}")
     public Result<DishVO> id(@PathVariable Long id){
-        log.info("根据id查询菜品: {}", id);
+        log.info("根据id查询菜品请求: {}", id);
 
         DishVO dishVo = dishService.id(id);
 
         return Result.success(dishVo);
+    }
+
+    @PutMapping
+    public Result update(@RequestBody DishDTO dishDTO){
+        log.info("修改菜品请求: {}", dishDTO);
+
+        dishService.update(dishDTO);
+
+        return Result.success();
     }
 }
