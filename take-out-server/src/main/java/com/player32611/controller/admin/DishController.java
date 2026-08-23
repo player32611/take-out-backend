@@ -7,6 +7,7 @@ import com.player32611.result.PageResult;
 import com.player32611.result.Result;
 import com.player32611.service.DishService;
 import com.player32611.vo.DishPageVO;
+import com.player32611.vo.DishVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -48,4 +49,13 @@ public class DishController {
         return Result.success();
     }
 
+
+    @GetMapping("/{id}")
+    public Result<DishVO> id(@PathVariable Long id){
+        log.info("根据id查询菜品: {}", id);
+
+        DishVO dishVo = dishService.id(id);
+
+        return Result.success(dishVo);
+    }
 }

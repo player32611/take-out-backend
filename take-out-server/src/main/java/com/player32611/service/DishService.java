@@ -5,6 +5,7 @@ import com.player32611.dto.DishPageDTO;
 import com.player32611.entity.Dish;
 import com.player32611.result.PageResult;
 import com.player32611.vo.DishPageVO;
+import com.player32611.vo.DishVO;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface DishService {
     PageResult<DishPageVO> page(DishPageDTO dishPageDTO);
 
     void delete(List<Long> ids);
+
+    DishVO id(Long id);
 }

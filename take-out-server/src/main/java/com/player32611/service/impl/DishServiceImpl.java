@@ -15,6 +15,7 @@ import com.player32611.mapper.SetmealDishMapper;
 import com.player32611.result.PageResult;
 import com.player32611.service.DishService;
 import com.player32611.vo.DishPageVO;
+import com.player32611.vo.DishVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,5 +84,18 @@ public class DishServiceImpl implements DishService {
 
         dishMapper.deleteByIds(ids);
         dishFlavorMapper.deleteByDishIds(ids);
+    }
+
+    @Override
+    public DishVO id(Long id){
+        Dish dish = dishMapper.selectById(id);
+
+        List<DishFlavor> dishFlavors = dishFlavorMapper.selectByDishId(id);
+
+        DishVO dishVO = new DishVO();
+        BeanUtils.copyProperties(dish, dishVO);
+        dishVO.setFlavors(dishFlavors);
+
+        return dishVO;
     }
 }
