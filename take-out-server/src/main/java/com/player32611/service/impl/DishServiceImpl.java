@@ -8,6 +8,7 @@ import com.player32611.dto.DishDTO;
 import com.player32611.dto.DishPageDTO;
 import com.player32611.entity.Dish;
 import com.player32611.entity.DishFlavor;
+import com.player32611.entity.Employee;
 import com.player32611.exception.DeletionNotAllowedException;
 import com.player32611.mapper.DishFlavorMapper;
 import com.player32611.mapper.DishMapper;
@@ -115,5 +116,15 @@ public class DishServiceImpl implements DishService {
             });
             dishFlavorMapper.insertBatch(flavors);
         }
+    }
+
+    @Override
+    public void status(Integer status, Long id){
+        Dish dish = Dish.builder()
+                .status(status)
+                .id(id)
+                .build();
+
+        dishMapper.update(dish);
     }
 }
