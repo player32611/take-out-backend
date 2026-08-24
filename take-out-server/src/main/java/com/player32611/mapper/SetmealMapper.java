@@ -15,4 +15,7 @@ public interface SetmealMapper {
     void insert(Setmeal setmeal);
 
     Page<SetmealPageVO> page(SetmealPageDTO setmealPageDTO);
+
+    @AutoFill(value = OperationType.UPDATE)
+    void update(Setmeal setmeal);
 }

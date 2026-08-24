@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.player32611.dto.SetmealDTO;
 import com.player32611.dto.SetmealPageDTO;
+import com.player32611.entity.Dish;
 import com.player32611.entity.Setmeal;
 import com.player32611.entity.SetmealDish;
 import com.player32611.mapper.SetmealDishMapper;
@@ -58,5 +59,15 @@ public class SetmealServiceImpl implements SetmealService {
         List<SetmealPageVO> records = page.getResult();
 
         return new PageResult<>(total, records);
+    }
+
+    @Override
+    public void status(Integer status, Long id){
+        Setmeal setmeal = Setmeal.builder()
+                .status(status)
+                .id(id)
+                .build();
+
+        setmealMapper.update(setmeal);
     }
 }

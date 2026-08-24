@@ -29,11 +29,20 @@ public class SetmealController {
     }
 
     @GetMapping("/page")
-    private Result<PageResult<SetmealPageVO>> page(SetmealPageDTO setmealPageDTO){
+    public Result<PageResult<SetmealPageVO>> page(SetmealPageDTO setmealPageDTO){
         log.info("分页查询套餐请求: {}", setmealPageDTO);
 
         PageResult<SetmealPageVO> pageResult = setmealService.page(setmealPageDTO);
 
         return Result.success(pageResult);
+    }
+
+    @PostMapping("/status/{status}")
+    public Result status(@PathVariable Integer status, Long id){
+        log.info("套餐起售、停售请求: {}, {}", status, id);
+
+        setmealService.status(status, id);
+
+        return Result.success();
     }
 }

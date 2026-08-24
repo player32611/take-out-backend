@@ -10,4 +10,6 @@ public interface SetmealService {
     void save(SetmealDTO setmealDTO);
 
     PageResult<SetmealPageVO> page(SetmealPageDTO setmealPageDTO);
+
+    void status(Integer status, Long id);
 }
