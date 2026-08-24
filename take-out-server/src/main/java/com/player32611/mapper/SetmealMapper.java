@@ -1,8 +1,11 @@
 package com.player32611.mapper;
 
+import com.github.pagehelper.Page;
 import com.player32611.annotation.AutoFill;
+import com.player32611.dto.SetmealPageDTO;
 import com.player32611.entity.Setmeal;
 import com.player32611.enumeration.OperationType;
+import com.player32611.vo.SetmealPageVO;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
@@ -10,4 +13,6 @@ public interface SetmealMapper {
 
     @AutoFill(value = OperationType.INSERT)
     void insert(Setmeal setmeal);
+
+    Page<SetmealPageVO> page(SetmealPageDTO setmealPageDTO);
 }
