@@ -6,6 +6,9 @@ spring:
     url: jdbc:mysql://localhost:3306/take_out_database
     username: root
     password: hcb326630
+  redis:
+    host: ${player32611.redis.host}
+    port: ${player32611.redis.port}
 mybatis:
   mapper-locations: classpath:/mapper/*.xml
   configuration:

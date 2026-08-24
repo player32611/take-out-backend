@@ -23,7 +23,20 @@ public class EmployeeMapperTest {
 
     @Test
     public void testInsert() {
-        Employee employee = new Employee(null,"test","test","123456","11111111111","男", "111111111111111111", 1, LocalDateTime.now(), LocalDateTime.now(), 1, 1);
+        Employee employee = Employee.builder()
+                .id(null)
+                .name("testiest")
+                .username("testiest")
+                .password("123456")
+                .phone("11111111111")
+                .sex("女")
+                .idNumber("111111111111111111")
+                .status(1)
+                .createTime(LocalDateTime.now())
+                .updateTime(LocalDateTime.now())
+                .createUser(2L)
+                .updateUser(2L)
+                .build();
         System.out.println(employeeMapper.insert(employee));
     }
 }

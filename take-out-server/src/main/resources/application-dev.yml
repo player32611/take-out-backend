@@ -5,3 +5,6 @@ player32611:
     access-key-id: LTAI5t7Q15FkJ676QshDEs9G
     access-key-secret: YiWN2BgyFwFdFoUlUNeeemFYSXoBrA
     bucket-name: take-out-player32611
+  redis:
+    host: localhost
+    port: 6379
