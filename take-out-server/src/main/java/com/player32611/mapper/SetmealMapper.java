@@ -9,6 +9,8 @@ import com.player32611.vo.SetmealPageVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 @Mapper
 public interface SetmealMapper {
 
@@ -22,4 +24,6 @@ public interface SetmealMapper {
 
     @Select("select * from setmeal where id = #{id}")
     Setmeal selectById(Long id);
+
+    void deleteByIds(List<Long> ids);
 }

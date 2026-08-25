@@ -2,10 +2,14 @@ package com.player32611.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.player32611.constant.MessageConstant;
+import com.player32611.constant.StatusConstant;
 import com.player32611.dto.SetmealDTO;
 import com.player32611.dto.SetmealPageDTO;
+import com.player32611.entity.Dish;
 import com.player32611.entity.Setmeal;
 import com.player32611.entity.SetmealDish;
+import com.player32611.exception.DeletionNotAllowedException;
 import com.player32611.mapper.SetmealDishMapper;
 import com.player32611.mapper.SetmealMapper;
 import com.player32611.result.PageResult;
@@ -19,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Slf4j
@@ -99,5 +104,18 @@ public class SetmealServiceImpl implements SetmealService {
             });
             setmealDishMapper.insertBatch(setmealDishes);
         }
+    }
+
+    @Override
+    public void delete(List<Long> ids){
+        for (Long id : ids){
+            Setmeal setmeal = setmealMapper.selectById(id);
+            if(Objects.equals(setmeal.getStatus(), StatusConstant.ENABLE)){
+                throw new DeletionNotAllowedException(MessageConstant.SETMEAL_ON_SALE);
+            }
+        }
+
+        setmealMapper.deleteByIds(ids);
+        setmealDishMapper.deleteBySetmealIds(ids);
     }
 }

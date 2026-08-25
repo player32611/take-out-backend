@@ -6,6 +6,8 @@ import com.player32611.result.PageResult;
 import com.player32611.vo.SetmealPageVO;
 import com.player32611.vo.SetmealVO;
 
+import java.util.List;
+
 public interface SetmealService {
 
     void save(SetmealDTO setmealDTO);
@@ -17,4 +19,6 @@ public interface SetmealService {
     SetmealVO id(Long id);
 
     void update(SetmealDTO setmealDTO);
+
+    void delete(List<Long> ids);
 }
