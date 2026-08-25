@@ -1,0 +1,14 @@
+package com.player32611.properties;
+
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
+
+@Component
+@ConfigurationProperties(prefix = "player32611.wechat")
+@Data
+public class WeChatProperties {
+
+    private String appid;
+    private String secret;
+}
