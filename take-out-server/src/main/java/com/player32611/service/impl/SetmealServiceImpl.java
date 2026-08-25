@@ -4,15 +4,14 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.player32611.dto.SetmealDTO;
 import com.player32611.dto.SetmealPageDTO;
-import com.player32611.entity.Dish;
 import com.player32611.entity.Setmeal;
 import com.player32611.entity.SetmealDish;
 import com.player32611.mapper.SetmealDishMapper;
 import com.player32611.mapper.SetmealMapper;
 import com.player32611.result.PageResult;
 import com.player32611.service.SetmealService;
-import com.player32611.vo.DishPageVO;
 import com.player32611.vo.SetmealPageVO;
+import com.player32611.vo.SetmealVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,5 +68,36 @@ public class SetmealServiceImpl implements SetmealService {
                 .build();
 
         setmealMapper.update(setmeal);
+    }
+
+    @Override
+    public SetmealVO id(Long id){
+        Setmeal setmeal = setmealMapper.selectById(id);
+
+        List<SetmealDish> setmealDishes = setmealDishMapper.selectBySetmealId(id);
+
+        SetmealVO setmealVO = new SetmealVO();
+        BeanUtils.copyProperties(setmeal, setmealVO);
+        setmealVO.setSetmealDishes(setmealDishes);
+
+        return setmealVO;
+    }
+
+    @Override
+    public void update(SetmealDTO setmealDTO){
+        Setmeal setmeal = new Setmeal();
+        BeanUtils.copyProperties(setmealDTO, setmeal);
+
+        setmealMapper.update(setmeal);
+
+        setmealDishMapper.deleteBySetmealId(setmealDTO.getId());
+
+        List<SetmealDish> setmealDishes = setmealDTO.getSetmealDishes();
+        if(setmealDishes != null && !setmealDishes.isEmpty()){
+            setmealDishes.forEach(setmealDish -> {
+                setmealDish.setSetmealId(setmealDTO.getId());
+            });
+            setmealDishMapper.insertBatch(setmealDishes);
+        }
     }
 }
