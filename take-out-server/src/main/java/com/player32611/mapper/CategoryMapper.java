@@ -13,6 +13,9 @@ import java.util.List;
 @Mapper
 public interface CategoryMapper {
 
+    @Select("select * from category where id = #{id}")
+    Category selectById(Long id);
+
     @Select("select * from category order by sort")
     List<Category> selectAll();
 

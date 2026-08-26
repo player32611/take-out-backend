@@ -23,4 +23,17 @@
             #{dishId}
         </foreach>
     </delete>
+
+    <select id="selectSetmealDishVOBySetmealId"
+            parameterType="java.lang.Long"
+            resultType="com.player32611.vo.SetmealDishVO">
+        SELECT
+        d.name,
+        d.description,
+        d.image,
+        sd.copies
+        FROM setmeal_dish sd
+        LEFT JOIN dish d ON sd.dish_id = d.id
+        WHERE sd.setmeal_id = #{id}
+    </select>
 </mapper>

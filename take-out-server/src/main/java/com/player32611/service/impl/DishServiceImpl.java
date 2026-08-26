@@ -5,11 +5,14 @@ import com.github.pagehelper.PageHelper;
 import com.player32611.constant.MessageConstant;
 import com.player32611.constant.StatusConstant;
 import com.player32611.dto.DishDTO;
+import com.player32611.dto.DishListDTO;
 import com.player32611.dto.DishPageDTO;
+import com.player32611.entity.Category;
 import com.player32611.entity.Dish;
 import com.player32611.entity.DishFlavor;
 import com.player32611.entity.Employee;
 import com.player32611.exception.DeletionNotAllowedException;
+import com.player32611.mapper.CategoryMapper;
 import com.player32611.mapper.DishFlavorMapper;
 import com.player32611.mapper.DishMapper;
 import com.player32611.mapper.SetmealDishMapper;
@@ -23,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -36,6 +40,8 @@ public class DishServiceImpl implements DishService {
     private DishFlavorMapper dishFlavorMapper;
     @Autowired
     private SetmealDishMapper setmealDishMapper;
+    @Autowired
+    private CategoryMapper categoryMapper;
 
     @Override
     @Transactional
@@ -126,5 +132,23 @@ public class DishServiceImpl implements DishService {
                 .build();
 
         dishMapper.update(dish);
+    }
+
+    @Override
+    public List<DishVO> list(DishListDTO dishListDTO) {
+        Category category = categoryMapper.selectById(dishListDTO.getCategoryId());
+        List<Dish> dishList = dishMapper.selectByCategoryId(dishListDTO.getCategoryId());
+
+        List<DishVO> dishVOList = new ArrayList<>();
+        for (Dish dish : dishList) {
+            List<DishFlavor> dishFlavors = dishFlavorMapper.selectByDishId(dish.getId());
+            DishVO dishVO = new DishVO();
+            BeanUtils.copyProperties(dish, dishVO);
+            dishVO.setFlavors(dishFlavors);
+            dishVO.setCategoryName(category.getName());
+            dishVOList.add(dishVO);
+        }
+
+        return dishVOList;
     }
 }

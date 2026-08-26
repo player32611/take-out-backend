@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.player32611.constant.MessageConstant;
 import com.player32611.constant.StatusConstant;
 import com.player32611.dto.SetmealDTO;
+import com.player32611.dto.SetmealListDTO;
 import com.player32611.dto.SetmealPageDTO;
 import com.player32611.entity.Dish;
 import com.player32611.entity.Setmeal;
@@ -14,6 +15,7 @@ import com.player32611.mapper.SetmealDishMapper;
 import com.player32611.mapper.SetmealMapper;
 import com.player32611.result.PageResult;
 import com.player32611.service.SetmealService;
+import com.player32611.vo.SetmealDishVO;
 import com.player32611.vo.SetmealPageVO;
 import com.player32611.vo.SetmealVO;
 import lombok.extern.slf4j.Slf4j;
@@ -117,5 +119,16 @@ public class SetmealServiceImpl implements SetmealService {
 
         setmealMapper.deleteByIds(ids);
         setmealDishMapper.deleteBySetmealIds(ids);
+    }
+
+    @Override
+    public List<Setmeal> list(SetmealListDTO setmealListDTO){
+
+        return setmealMapper.selectByCategoryId(setmealListDTO.getCategoryId());
+    }
+
+    @Override public List<SetmealDishVO> dish(Long id){
+
+        return setmealDishMapper.selectSetmealDishVOBySetmealId(id);
     }
 }

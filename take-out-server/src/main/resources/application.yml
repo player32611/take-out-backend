@@ -20,7 +20,7 @@ player32611:
     admin-token-name: token
     user-secret-key: player32611_take_out_jwt_secret_key_2026
     user-ttl: 86400000
-    user-token-name: authentication
+    user-token-name: Authorization
   alioss:
     endpoint: ${player32611.alioss.endpoint}
     access-key-id: ${player32611.alioss.access-key-id}

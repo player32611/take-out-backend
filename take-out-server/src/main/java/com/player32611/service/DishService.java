@@ -1,6 +1,7 @@
 package com.player32611.service;
 
 import com.player32611.dto.DishDTO;
+import com.player32611.dto.DishListDTO;
 import com.player32611.dto.DishPageDTO;
 import com.player32611.entity.Dish;
 import com.player32611.result.PageResult;
@@ -21,4 +22,6 @@ public interface DishService {
     void update(DishDTO dishDTO);
 
     void status(Integer status, Long id);
+
+    List<DishVO> list(DishListDTO dishListDTO);
 }
