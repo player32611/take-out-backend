@@ -6,6 +6,7 @@ import com.player32611.service.DishService;
 import com.player32611.vo.DishVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +22,7 @@ public class DishController {
     private DishService dishService;
 
     @GetMapping("/list")
+    @Cacheable(value = "dishCache", key = "#dishListDTO.categoryId")
     public Result<List<DishVO>> list(DishListDTO dishListDTO){
         log.info("根据分类id查询菜品请求: {}", dishListDTO);
 
