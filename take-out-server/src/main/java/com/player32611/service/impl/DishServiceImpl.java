@@ -10,8 +10,8 @@ import com.player32611.dto.DishPageDTO;
 import com.player32611.entity.Category;
 import com.player32611.entity.Dish;
 import com.player32611.entity.DishFlavor;
-import com.player32611.entity.Employee;
 import com.player32611.exception.DeletionNotAllowedException;
+import com.player32611.exception.UpdateNotAllowedException;
 import com.player32611.mapper.CategoryMapper;
 import com.player32611.mapper.DishFlavorMapper;
 import com.player32611.mapper.DishMapper;
@@ -126,6 +126,11 @@ public class DishServiceImpl implements DishService {
 
     @Override
     public void status(Integer status, Long id){
+        List<Long> setmealIds = setmealDishMapper.selectSetmealIdByDishId(id);
+        if(setmealIds != null && !setmealIds.isEmpty()){
+            throw new UpdateNotAllowedException(MessageConstant.DISH_BE_RELATED_BY_SETMEAL_ENABLE);
+        }
+
         Dish dish = Dish.builder()
                 .status(status)
                 .id(id)

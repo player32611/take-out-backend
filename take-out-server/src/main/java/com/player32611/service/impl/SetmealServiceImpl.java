@@ -7,7 +7,6 @@ import com.player32611.constant.StatusConstant;
 import com.player32611.dto.SetmealDTO;
 import com.player32611.dto.SetmealListDTO;
 import com.player32611.dto.SetmealPageDTO;
-import com.player32611.entity.Dish;
 import com.player32611.entity.Setmeal;
 import com.player32611.entity.SetmealDish;
 import com.player32611.exception.DeletionNotAllowedException;

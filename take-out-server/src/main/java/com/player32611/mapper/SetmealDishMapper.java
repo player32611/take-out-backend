@@ -1,9 +1,6 @@
 package com.player32611.mapper;
 
-import com.player32611.annotation.AutoFill;
-import com.player32611.entity.DishFlavor;
 import com.player32611.entity.SetmealDish;
-import com.player32611.enumeration.OperationType;
 import com.player32611.vo.SetmealDishVO;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
@@ -13,6 +10,9 @@ import java.util.List;
 
 @Mapper
 public interface SetmealDishMapper {
+
+    @Select("select setmeal_id from setmeal_dish where dish_id = #{id}")
+    List<Long> selectSetmealIdByDishId(Long id);
 
     List<Long> selectSetmealIdByDishIds(List<Long> dishIds);
 
