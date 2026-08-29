@@ -17,4 +17,6 @@ public interface AddressBookService {
     void delete(AddressBookDTO addressBookDTO);
 
     void update(AddressBook addressBook);
+
+    AddressBook getDefault();
 }

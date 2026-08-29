@@ -60,4 +60,9 @@ public class AddressBookServiceImpl implements AddressBookService {
     public void update(AddressBook addressBook){
         addressBookMapper.update(addressBook);
     }
+
+    @Override
+    public AddressBook getDefault(){
+        return addressBookMapper.selectDefaultByUserId(BaseContext.getCurrentId());
+    }
 }

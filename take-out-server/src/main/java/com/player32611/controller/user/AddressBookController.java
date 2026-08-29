@@ -71,4 +71,13 @@ public class AddressBookController {
 
         return Result.success();
     }
+
+    @GetMapping("/default")
+    public Result<AddressBook> getDefault(){
+        log.info("查询默认地址");
+
+        AddressBook addressBook = addressBookService.getDefault();
+
+        return Result.success(addressBook);
+    }
 }

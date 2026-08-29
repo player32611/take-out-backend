@@ -47,9 +47,7 @@ public class SetmealServiceImpl implements SetmealService {
 
         List<SetmealDish> setmealDishes = setmealDTO.getSetmealDishes();
         if(setmealDishes != null && !setmealDishes.isEmpty()){
-            setmealDishes.forEach(setmealDish -> {
-                setmealDish.setSetmealId(setmealId);
-            });
+            setmealDishes.forEach(setmealDish -> setmealDish.setSetmealId(setmealId));
             setmealDishMapper.insertBatch(setmealDishes);
         }
     }
@@ -100,9 +98,7 @@ public class SetmealServiceImpl implements SetmealService {
 
         List<SetmealDish> setmealDishes = setmealDTO.getSetmealDishes();
         if(setmealDishes != null && !setmealDishes.isEmpty()){
-            setmealDishes.forEach(setmealDish -> {
-                setmealDish.setSetmealId(setmealDTO.getId());
-            });
+            setmealDishes.forEach(setmealDish -> setmealDish.setSetmealId(setmealDTO.getId()));
             setmealDishMapper.insertBatch(setmealDishes);
         }
     }
