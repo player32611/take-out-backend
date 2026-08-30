@@ -173,4 +173,27 @@ public class OrderServiceImpl implements OrderService {
 
         ordersMapper.update(orders);
     }
+
+    @Override
+    public void repetition(Long id){
+        List<OrderDetail> orderDetailList = orderDetailMapper.selectByOrderId(id);
+
+        List<ShoppingCart> shoppingCartList = new ArrayList<>();
+        for(OrderDetail orderDetail : orderDetailList){
+            ShoppingCart cart = new ShoppingCart();
+            BeanUtils.copyProperties(orderDetail, cart);
+            cart.setUserId(BaseContext.getCurrentId());
+            cart.setCreateTime(LocalDateTime.now());
+            shoppingCartList.add(cart);
+        }
+
+        shoppingCartMapper.deleteByUserId(BaseContext.getCurrentId());
+
+        shoppingCartMapper.insertBatch(shoppingCartList);
+    }
+
+    @Override
+    public void reminder(Long id){
+
+    }
 }

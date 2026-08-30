@@ -18,4 +18,8 @@ public interface OrderService {
     OrderPaymentVO pay(OrderPaymentDTO orderPaymentDTO);
 
     void cancel(Long id);
+
+    void repetition(Long id);
+
+    void reminder(Long id);
 }
