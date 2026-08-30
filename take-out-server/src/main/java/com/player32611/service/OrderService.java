@@ -1,12 +1,8 @@
 package com.player32611.service;
 
-import com.player32611.dto.OrderHistoryDTO;
-import com.player32611.dto.OrderPaymentDTO;
-import com.player32611.dto.OrderSubmitDTO;
+import com.player32611.dto.*;
 import com.player32611.result.PageResult;
-import com.player32611.vo.OrderPaymentVO;
-import com.player32611.vo.OrderVO;
-import com.player32611.vo.OrderSubmitVO;
+import com.player32611.vo.*;
 
 public interface OrderService {
     OrderSubmitVO submit(OrderSubmitDTO orderSubmitDTO);
@@ -22,4 +18,20 @@ public interface OrderService {
     void repetition(Long id);
 
     void reminder(Long id);
+
+    PageResult<OrderSearchVO>  search(OrderSearchDTO orderSearchDTO);
+
+    void delivery(Long id);
+
+    void confirm(OrderConfirmDTO orderConfirmDTO);
+
+    void rejection(OrderRejectionDTO orderRejectionDTO);
+
+    void complete(Long id);
+
+    OrderStatisticsVO statistics();
+
+    void cancel(OrderCancelDTO orderCancelDTO);
+
+    OrderDetailsVO details(Long id);
 }

@@ -1,9 +1,12 @@
 package com.player32611.mapper;
 
 import com.github.pagehelper.Page;
+import com.player32611.dto.OrderSearchDTO;
 import com.player32611.entity.Orders;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 @Mapper
 public interface OrdersMapper {
@@ -19,4 +22,9 @@ public interface OrdersMapper {
     Orders selectByNumberAndUserId(String number, Long userId);
 
     void update(Orders orders);
+
+    Page<Orders> search(OrderSearchDTO orderSearchDTO);
+
+    @Select("select * from orders where status = #{status}")
+    List<Orders> selectByStatus(Integer status);
 }

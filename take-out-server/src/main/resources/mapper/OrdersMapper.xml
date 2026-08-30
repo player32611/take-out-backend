@@ -106,4 +106,31 @@
         </set>
         WHERE id = #{id}
     </update>
+
+    <select id="search" resultType="com.player32611.entity.Orders">
+        SELECT * FROM orders
+        <where>
+            <if test="beginTime != null">
+                AND order_time &gt;= #{beginTime}
+            </if>
+
+            <if test="endTime != null">
+                AND order_time &lt;= #{endTime}
+            </if>
+
+            <if test="number != null and number != ''">
+                AND number LIKE CONCAT('%', #{number}, '%')
+            </if>
+
+            <if test="phone != null and phone != ''">
+                AND phone LIKE CONCAT('%', #{phone}, '%')
+            </if>
+
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+        </where>
+
+        ORDER BY order_time DESC
+    </select>
 </mapper>

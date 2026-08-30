@@ -15,5 +15,10 @@ public class MessageConstant {
     public static final String ADDRESS_BOOK_IS_NULL = "用户地址为空，不能下单";
     public static final String SHOPPING_CART_IS_NULL = "购物车数据为空，不能下单";
     public static final String ORDER_NOT_EXIST = "订单不存在";
-    public static final String ORDER_STATUS_ERROR = "无法取消该状态下的订单";
+    public static final String ORDER_STATUS_ERROR = "无法修改该状态下的订单";
+    public static final String CATEGORY_NOT_EXIST = "套餐不存在";
+    public static final String CATEGORY_BY_RELATED_BY_DISH = "当前分类关联了菜品，不能删除";
+    public static final String CATEGORY_BY_RELATED_BY_SETMEAL = "当前分类关联了套餐，不能删除";
+    public static final String REJECTION_REASON_EMPTY = "拒单原因不能为空";
+    public static final String CANCEL_REASON_EMPTY = "取消原因不能为空";
 }
