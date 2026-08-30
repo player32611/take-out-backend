@@ -84,7 +84,7 @@ public class Orders implements Serializable {
     private LocalDateTime deliveryTime;
 
     /** 打包数量 (INT) */
-    private Integer packAmount;
+    private BigDecimal packAmount;
 
     /** 餐具数量 (INT) */
     private Integer tablewareNumber;
