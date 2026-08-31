@@ -4,6 +4,8 @@ import com.player32611.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.time.LocalDateTime;
+
 @Mapper
 public interface UserMapper {
 
@@ -11,4 +13,6 @@ public interface UserMapper {
     User selectByOpenid(String openid);
 
     void insert(User user);
+
+    Integer selectSumByDate(LocalDateTime begin, LocalDateTime end);
 }

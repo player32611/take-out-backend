@@ -21,4 +21,5 @@ public class MessageConstant {
     public static final String CATEGORY_BY_RELATED_BY_SETMEAL = "当前分类关联了套餐，不能删除";
     public static final String REJECTION_REASON_EMPTY = "拒单原因不能为空";
     public static final String CANCEL_REASON_EMPTY = "取消原因不能为空";
+    public static final String BEGIN_DATE_OVER_END_DATE = "起始日期不能大于结束日期";
 }
