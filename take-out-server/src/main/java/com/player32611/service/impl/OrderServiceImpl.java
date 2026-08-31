@@ -1,5 +1,6 @@
 package com.player32611.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.player32611.constant.MessageConstant;
@@ -17,15 +18,14 @@ import com.player32611.mapper.ShoppingCartMapper;
 import com.player32611.result.PageResult;
 import com.player32611.service.OrderService;
 import com.player32611.vo.*;
+import com.player32611.websocket.WebSocketServer;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,6 +39,8 @@ public class OrderServiceImpl implements OrderService {
     private AddressBookMapper addressBookMapper;
     @Autowired
     private ShoppingCartMapper shoppingCartMapper;
+    @Autowired
+    private WebSocketServer webSocketServer;
 
     @Override
     @Transactional
@@ -144,6 +146,13 @@ public class OrderServiceImpl implements OrderService {
 
         ordersMapper.update(orders);
 
+        Map map = new HashMap();
+        map.put("type", StatusConstant.PAY); // 1 来单提醒
+        map.put("orderId", orders.getId());
+        map.put("message", "订单号: " + orders.getNumber());
+        String json = JSON.toJSONString(map);
+        webSocketServer.sentToAllClient(json);
+
         return OrderPaymentVO.builder()
                 .estimatedDeliveryTime(LocalDateTime.now().plusMinutes(30))
                 .build();
@@ -192,7 +201,16 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void reminder(Long id){
+        Orders orders = ordersMapper.selectById(id);
 
+        if(orders == null) throw new OrderBusinessException(MessageConstant.ORDER_NOT_EXIST);
+
+        Map map = new HashMap();
+        map.put("type", StatusConstant.REMINDER);
+        map.put("orderId", id);
+        map.put("message", "订单号: " + orders.getNumber());
+        String json = JSON.toJSONString(map);
+        webSocketServer.sentToAllClient(json);
     }
 
     @Override
