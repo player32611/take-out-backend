@@ -5,7 +5,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/take_out_database
     username: root
-    password: hcb326630
+    password: your-password
   redis:
     host: ${player32611.redis.host}
     port: ${player32611.redis.port}
