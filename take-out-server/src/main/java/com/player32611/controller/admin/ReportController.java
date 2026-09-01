@@ -7,6 +7,7 @@ import com.player32611.vo.ReportOrdersVO;
 import com.player32611.vo.ReportTop10VO;
 import com.player32611.vo.ReportTurnoverVO;
 import com.player32611.vo.ReportUserVO;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -55,5 +56,12 @@ public class ReportController {
         ReportTop10VO reportTop10VO = reportService.top10(reportDTO);
 
         return Result.success(reportTop10VO);
+    }
+
+    @GetMapping("/export")
+    public void export(HttpServletResponse response){
+        log.info("导出Excel报表接口");
+
+        reportService.export(response);
     }
 }

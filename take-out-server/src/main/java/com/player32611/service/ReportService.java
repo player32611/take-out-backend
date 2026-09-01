@@ -5,6 +5,7 @@ import com.player32611.vo.ReportOrdersVO;
 import com.player32611.vo.ReportTop10VO;
 import com.player32611.vo.ReportTurnoverVO;
 import com.player32611.vo.ReportUserVO;
+import jakarta.servlet.http.HttpServletResponse;
 
 public interface ReportService {
     ReportTurnoverVO turnover(ReportDTO reportDTO);
@@ -14,4 +15,6 @@ public interface ReportService {
     ReportOrdersVO orders(ReportDTO reportDTO);
 
     ReportTop10VO top10(ReportDTO reportDTO);
+
+    void export(HttpServletResponse response);
 }
