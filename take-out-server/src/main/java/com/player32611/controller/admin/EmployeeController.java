@@ -96,4 +96,11 @@ public class EmployeeController {
 
         return Result.success();
     }
+
+    @PostMapping("/logout")
+    public Result logout(){
+        log.info("退出登录");
+
+        return Result.success();
+    }
 }
