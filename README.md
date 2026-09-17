@@ -1,6 +1,13 @@
 # take-out-backend
 
-外卖管理系统后端，基于 Spring Boot 构建的 RESTful API 服务，为餐饮企业提供完整的后台管理接口和用户端接口。
+外卖管理系统后端，基于 Spring Boot 构建的 RESTful API 服务，为餐饮企业提供完整的管理端后台接口和用户端（微信小程序）接口。
+
+## 相关项目
+
+| 项目 | 仓库地址 | 说明 |
+|------|----------|------|
+| 前端管理后台 | [take-out-frontend](https://github.com/player32611/take-out-frontend) | PC 后台管理界面，对接 `/admin/**` 接口 |
+| 小程序端 | [take-out-miniprogram](https://github.com/player32611/take-out-miniprogram) | 微信小程序用户端，对接 `/user/**` 接口 |
 
 ## 技术栈
 
@@ -15,6 +22,20 @@
 - **HTTP 客户端**: Apache HttpClient
 - **工具库**: Lombok、Fastjson、commons-lang3
 - **构建工具**: Maven（Java 26）
+
+## 项目亮点
+
+- **三端一体架构**：同一套后端同时服务管理端（PC 后台）与用户端（小程序），通过 `/admin/**` 与 `/user/**` 双路由体系清晰隔离，配套前端仓库见上方「相关项目」。
+- **双端独立 JWT 鉴权**：管理端与用户端各自使用独立的密钥与 Token 名称，由 `JwtTokenAdminInterceptor` / `JwtTokenUserInterceptor` 拦截器实现无状态鉴权，解析出的用户 ID 通过 `BaseContext`（ThreadLocal）在线程内安全传递。
+- **AOP 公共字段自动填充**：自定义 `@AutoFill` 注解 + 切面，在 Mapper 层统一填充 `createTime` / `createUser` / `updateTime` / `updateUser`，消除大量样板代码。
+- **Redis 多级缓存**：菜品/套餐列表基于 Spring Cache 按分类 ID 缓存，写操作通过 `@CacheEvict` 自动失效；店铺营业状态直接落地 Redis，降低数据库压力。
+- **WebSocket 实时订单推送**：用户支付后即时推送「来单提醒」，催单同步广播，管理端无需刷新即可感知新订单。
+- **定时任务保障订单状态**：`@Scheduled` 定时扫描，15 分钟未支付订单自动取消、配送超时订单自动完成，保障订单状态一致。
+- **报表分析与 Excel 导出**：营业额/用户/订单/销量 Top10 多维度统计，借助 Apache POI 生成带样式、合并单元格的运营数据报表并支持导出下载。
+- **微信小程序登录**：`code` 换取 `openid`，新用户自动注册，签发 JWT 完成免密登录闭环。
+- **统一响应与全局异常**：`Result` / `PageResult` 统一返回结构，`@RestControllerAdvice` 全局异常处理，接口契约清晰稳定。
+- **多模块工程**：`common`（公共能力）/ `pojo`（数据模型）/ `server`（业务逻辑）三层分离，便于扩展与复用。
+- **前沿技术栈**：基于 Spring Boot 4.1 与 JDK 26，体验最新框架特性。
 
 ## 项目结构
 
